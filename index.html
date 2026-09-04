@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#111,#3b0000);
+  color:white;
+}
+.card{
+  width:min(90%,420px);
+  text-align:center;
+  padding:40px 25px;
+  border-radius:20px;
+  background:#181818;
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
+}
+h1{font-size:42px;margin:0 0 15px}
+p{font-size:18px;color:#ddd}
+button{
+  margin-top:20px;
+  padding:15px 35px;
+  border:0;
+  border-radius:10px;
+  background:#e00000;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:active{transform:scale(.98)}
+#surprise{display:none}
+</style>
+</head>
+<body>
+
+<div class="card" id="welcome">
+  <h1>👋 Welcome</h1>
+  <p>Click continue to enter.</p>
+  <button id="continueBtn">Continue</button>
+</div>
+
+<div class="card" id="surprise">
+  <h1>😂 GOT YOU!</h1>
+  <p>🐔 Surprise!</p>
+</div>
+
+<audio id="sound" loop preload="auto" playsinline>
+  <source src="./sound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const button = document.getElementById("continueBtn");
+const welcome = document.getElementById("welcome");
+const surprise = document.getElementById("surprise");
+const audio = document.getElementById("sound");
+
+button.addEventListener("click", async () => {
+  welcome.style.display = "none";
+  surprise.style.display = "block";
+
+  audio.volume = 0.5;
+  audio.currentTime = 0;
+
+  try {
+    await audio.play();
+  } catch (err) {
+    console.log("Audio playback failed:", err);
+    alert("Please turn up your phone media volume and tap Continue again.");
+  }
+});
+</script>
+
+</body>
+</html>
